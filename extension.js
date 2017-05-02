@@ -56,13 +56,19 @@ function activate(context) {
         const selection = editor.selection;
         const text = editor.document.getText(selection);
 
-        text
-            ? vscode.commands.executeCommand('editor.action.insertLineAfter')
+        if (text) {
+            vscode.commands.executeCommand('editor.action.insertLineAfter')
                 .then(() => {
                     const logToInsert = `console.log('${text}: ', ${text})`;
                     insertText(logToInsert);
                 })
-            : insertText('console.log()');
+        } else {
+            insertText('console.log()');
+            vscode.commands.executeCommand('cursorRight')
+                .then(() => {
+                    vscode.commands.executeCommand('cursorLeft');
+                })
+        }
 
     });
     context.subscriptions.push(insertLogStatement);

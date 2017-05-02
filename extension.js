@@ -62,7 +62,7 @@ function activate(context) {
                     const logToInsert = `console.log('${text}: ', ${text})`;
                     insertText(logToInsert);
                 })
-            : insertText('console.log();');
+            : insertText('console.log()');
 
     });
     context.subscriptions.push(insertLogStatement);
